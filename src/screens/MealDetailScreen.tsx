@@ -1,20 +1,26 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationStackScreenComponent,
+  NavigationStackScreenProps
+} from 'react-navigation-stack';
 
-interface IMealDetailScreenProps {
-  navigation: NavigationScreenProp<any>;
-}
+interface IMealDetailScreenProps extends NavigationStackScreenProps {}
 
-const MealDetailScreen = (props: IMealDetailScreenProps) => {
+const MealDetailScreen: NavigationStackScreenComponent = (
+  props: IMealDetailScreenProps
+) => {
   return (
     <View style={styles.screen}>
       <Text>The meal detail screen</Text>
-      <Button title="Go back to Categories" onPress={() => {
-        props.navigation.goBack();
-      }}/>
+      <Button
+        title='Go back to Categories'
+        onPress={() => {
+          props.navigation.goBack();
+        }}
+      />
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
