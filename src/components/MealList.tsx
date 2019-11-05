@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import MealItem from './MealItem';
 import Meal from '../models/meal';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -11,18 +12,27 @@ interface IMealListProps {
 }
 
 const MealList = (props: IMealListProps) => {
+  const favoriteMeals = useSelector((state: any) => state.meals.favoriteMeals);
   const renderMealItem = ({ item }: { item: Meal }) => {
+    const isFavorite = favoriteMeals.some((meal: Meal) => meal.id === item.id);
     return (
-      <MealItem title={item.title} 
-      duration={item.duration}
-      complexity={item.complexity}
-      affordability={item.affordability}
-      image={item.imageUrl}
-      onSelectMeal={() => {
-        props.navigation.navigate({routeName: 'MealDetail', params: {
-          mealId: item.id
-        }})
-      }}/>
+      <MealItem
+        title={item.title}
+        duration={item.duration}
+        complexity={item.complexity}
+        affordability={item.affordability}
+        image={item.imageUrl}
+        onSelectMeal={() => {
+          props.navigation.navigate({
+            routeName: 'MealDetail',
+            params: {
+              mealId: item.id,
+              mealTitle: item.title,
+              isFav: isFavorite
+            }
+          });
+        }}
+      />
     );
   };
   return (
@@ -31,11 +41,11 @@ const MealList = (props: IMealListProps) => {
         data={props.listData}
         keyExtractor={(item: Meal, index: number) => item.id}
         renderItem={renderMealItem}
-        style={{width: '100%'}}
+        style={{ width: '100%' }}
       />
     </View>
-  ); 
-}
+  );
+};
 
 const styles = StyleSheet.create({
   list: {
