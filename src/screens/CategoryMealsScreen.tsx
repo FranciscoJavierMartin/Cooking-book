@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
 import {
   NavigationStackScreenComponent,
   NavigationStackScreenProps
@@ -32,16 +31,8 @@ CategoryMealsScreen.navigationOptions = (
   const selectedCategory = CATEGORIES.find((cat: Category) => cat.id === catId);
 
   return {
-    headerTitle: selectedCategory.title
+    headerTitle: selectedCategory.title,
   };
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
 
 export default CategoryMealsScreen;
