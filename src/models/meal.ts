@@ -11,7 +11,7 @@ class Meal {
     public steps: string[],
     public isGlutenFree: boolean,
     public isVegan: boolean,
-    public isVegetaria: boolean,
+    public isVegetarian: boolean,
     public isLactoseFree: boolean
   ) {
     

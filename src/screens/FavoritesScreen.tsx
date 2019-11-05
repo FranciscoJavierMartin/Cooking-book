@@ -1,17 +1,30 @@
 import React from 'react';
-import { NavigationStackScreenProps, NavigationStackScreenComponent } from 'react-navigation-stack';
+import { View, StyleSheet } from 'react-native';
+import {
+  NavigationStackScreenProps,
+  NavigationStackScreenComponent
+} from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import MealList from '../components/MealList';
 import HeaderButton from '../components/HeaderButton';
 import Meal from '../models/meal';
+import DefaultText from '../components/DefaultText';
 
 interface IMealDetailScreenProps extends NavigationStackScreenProps {}
 
-const FavoritesScreen: NavigationStackScreenComponent = (props: IMealDetailScreenProps) => {
+const FavoritesScreen: NavigationStackScreenComponent = (
+  props: IMealDetailScreenProps
+) => {
   const favMeals = useSelector((state: any) => state.meals.favoriteMeals);
-   
-  return <MealList listData={favMeals} navigation={props.navigation}/>
+
+  return !favMeals || favMeals.length === 0 ? (
+    <View style={styles.content}>
+      <DefaultText>No favorite meals found. Start adding some!</DefaultText>
+    </View>
+  ) : (
+    <MealList listData={favMeals} navigation={props.navigation} />
+  );
 };
 
 FavoritesScreen.navigationOptions = (
@@ -32,5 +45,13 @@ FavoritesScreen.navigationOptions = (
     )
   };
 };
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
 
 export default FavoritesScreen;
