@@ -6,10 +6,11 @@ import { createStore, combineReducers } from 'redux';
 import MealsNavigator from './navigation/MealsNavigation';
 import mealsReducer from './src/store/reducers/meals';
 import { Provider } from 'react-redux';
+import { IGlobalState } from './src/interfaces/States';
 
 enableScreens();
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers<IGlobalState>({
   meals: mealsReducer
 });
 

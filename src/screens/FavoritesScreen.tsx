@@ -8,15 +8,15 @@ import { useSelector } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import MealList from '../components/MealList';
 import HeaderButton from '../components/HeaderButton';
-import Meal from '../models/meal';
 import DefaultText from '../components/DefaultText';
+import { IGlobalState } from '../interfaces/States';
 
 interface IMealDetailScreenProps extends NavigationStackScreenProps {}
 
 const FavoritesScreen: NavigationStackScreenComponent = (
   props: IMealDetailScreenProps
 ) => {
-  const favMeals = useSelector((state: any) => state.meals.favoriteMeals);
+  const favMeals = useSelector((state: IGlobalState) => state.meals.favoriteMeals);
 
   return !favMeals || favMeals.length === 0 ? (
     <View style={styles.content}>

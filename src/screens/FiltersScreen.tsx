@@ -9,6 +9,7 @@ import HeaderButton from '../components/HeaderButton';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import Colors from '../constants/Colors';
 import {setFilters} from '../store/actions/meals';
+import { IFilters } from '../interfaces/filters';
 
 interface IFiltersScreenProps extends NavigationStackScreenProps {}
 interface IFilterSwitchProps {
@@ -41,7 +42,7 @@ const FiltersScreen: NavigationStackScreenComponent = (
   const dispatch = useDispatch();
 
   const saveFilters = useCallback(() => {
-    const appliedFilters = {
+    const appliedFilters: IFilters = {
       glutenFree: isGlutenFree,
       lactose: isLactoseFree,
       vegan: isVegan,

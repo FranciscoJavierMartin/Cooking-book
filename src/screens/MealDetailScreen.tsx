@@ -10,6 +10,7 @@ import HeaderButton from '../components/HeaderButton';
 import DefaultText from '../components/DefaultText';
 import Meal from '../models/meal';
 import { toggleFavorite } from '../store/actions/meals';
+import { IGlobalState } from '../interfaces/States';
 
 interface IMealDetailScreenProps extends NavigationStackScreenProps {}
 
@@ -24,8 +25,10 @@ const MealDetailScreen: NavigationStackScreenComponent = (
   props: IMealDetailScreenProps
 ) => {
   const mealId: string = props.navigation.getParam('mealId');
-  const avaliableMeals = useSelector((state: any) => state.meals.meals);
-  const currentMealIsFavorite = useSelector((state: any) =>
+  const avaliableMeals = useSelector(
+    (state: IGlobalState) => state.meals.meals
+  );
+  const currentMealIsFavorite = useSelector((state: IGlobalState) =>
     state.meals.favoriteMeals.some((meal: Meal) => meal.id === mealId)
   );
   const selectedMeal: Meal = avaliableMeals.find(
@@ -43,7 +46,7 @@ const MealDetailScreen: NavigationStackScreenComponent = (
   }, [toggleFavoriteHandler]);
 
   useEffect(() => {
-    props.navigation.setParams({isFav: currentMealIsFavorite});
+    props.navigation.setParams({ isFav: currentMealIsFavorite });
   }, [currentMealIsFavorite]);
 
   return (
@@ -76,7 +79,11 @@ MealDetailScreen.navigationOptions = (
     headerTitle: mealTitle,
     headerRight: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item title='Favorite' iconName={isFavorite ? 'ios-star' : 'ios-star-outline'} onPress={toggleFavorite} />
+        <Item
+          title='Favorite'
+          iconName={isFavorite ? 'ios-star' : 'ios-star-outline'}
+          onPress={toggleFavorite}
+        />
       </HeaderButtons>
     )
   };

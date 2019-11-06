@@ -10,6 +10,7 @@ import Meal from '../models/meal';
 import { CATEGORIES } from '../data/dummy-data';
 import MealList from '../components/MealList';
 import DefaultText from '../components/DefaultText';
+import { IGlobalState } from '../interfaces/States';
 
 interface ICategoryMealsScreenProps extends NavigationStackScreenProps {}
 
@@ -18,7 +19,7 @@ const CategoryMealsScreen: NavigationStackScreenComponent<
 > = (props: ICategoryMealsScreenProps) => {
   const catId = props.navigation.getParam('categoryId');
 
-  const availableMeals = useSelector((state: any) => state.meals.filteredMeals);
+  const availableMeals = useSelector((state: IGlobalState) => state.meals.filteredMeals);
 
   const displayedMeals = availableMeals.filter(
     (meal: Meal) => meal.categoryIds.indexOf(catId) >= 0

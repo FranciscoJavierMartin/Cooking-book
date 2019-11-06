@@ -5,6 +5,7 @@ import MealItem from './MealItem';
 import Meal from '../models/meal';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { NavigationRoute, NavigationParams } from 'react-navigation';
+import { IGlobalState } from '../interfaces/States';
 
 interface IMealListProps {
   listData: any[];
@@ -12,7 +13,7 @@ interface IMealListProps {
 }
 
 const MealList = (props: IMealListProps) => {
-  const favoriteMeals = useSelector((state: any) => state.meals.favoriteMeals);
+  const favoriteMeals = useSelector((state: IGlobalState) => state.meals.favoriteMeals);
   const renderMealItem = ({ item }: { item: Meal }) => {
     const isFavorite = favoriteMeals.some((meal: Meal) => meal.id === item.id);
     return (
